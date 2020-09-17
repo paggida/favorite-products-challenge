@@ -1,4 +1,4 @@
-export default class TokenExpiredError {
+export default class TokenError {
   public message: string;
 
   public data: object;

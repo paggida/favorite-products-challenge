@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
 
-import TokenExpiredError from '@shared/errors/TokenExpiredError';
+import TokenError from '@shared/errors/TokenError';
 
 export default function ensureAuthenticated(
   req: Request,
@@ -14,7 +14,7 @@ export default function ensureAuthenticated(
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('JWT token is missing.');
+    throw new TokenError('JWT token is missing.');
   }
 
   const [, token] = authHeader.split(' ');
@@ -24,6 +24,6 @@ export default function ensureAuthenticated(
 
     return next();
   } catch {
-    throw new TokenExpiredError('Invalid JWT token');
+    throw new TokenError('Invalid JWT token');
   }
 }

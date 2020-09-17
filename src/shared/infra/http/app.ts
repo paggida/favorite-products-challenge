@@ -4,8 +4,8 @@ import express from 'express';
 import { Application, Request, Response, NextFunction } from 'express';
 import { config as dotenvConfig } from 'dotenv';
 
-import '@shared/infra/mongoose/connection';
-import TokenExpiredError from '@shared/errors/TokenExpiredError';
+//TBD //import '@shared/infra/mongoose/connection';
+import TokenError from '@shared/errors/TokenError';
 import routes from './api/v1';
 
 class App {
@@ -55,7 +55,7 @@ class App {
           console.log(err);
         }
 
-        if (err instanceof TokenExpiredError) {
+        if (err instanceof TokenError) {
           return res.status(401).json({ message: err.message });
         }
 

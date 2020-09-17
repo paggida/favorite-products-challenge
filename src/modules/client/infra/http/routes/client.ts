@@ -1,11 +1,11 @@
-import express from 'express';
+import { Router } from 'express';
 
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 
-const clientRouter = express.Router();
+const clientRouter = Router();
 
 clientRouter.get('/', async (req, res) => {
-  return res.json({ message: 'Response without token.'});
+  return res.json({ message: `Response without token: ${process.env.APP_SECRET}`});
 });
 
 clientRouter.use(ensureAuthenticated);
