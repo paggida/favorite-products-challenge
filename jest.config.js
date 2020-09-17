@@ -1,7 +1,10 @@
-// For a detailed explanation regarding each configuration property, visit:
-// https://jestjs.io/docs/en/configuration.html
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig');
+const { name } = require('./package.json');
 
-export default {
+module.exports = {
+  displayName: name,
+  name,
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -72,7 +75,7 @@ export default {
   moduleFileExtensions : ['ts','tsx','js'],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: "<rootDir>/src/" }),
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -84,7 +87,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: null,
+  preset: '@shelf/jest-mongodb',
 
   // Run tests from one or more projects
   // projects: null,
@@ -116,7 +119,9 @@ export default {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
+  setupFiles: [
+    '<rootDir>/src/config/tests.ts'
+  ],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   // setupFilesAfterEnv: [],
@@ -134,8 +139,9 @@ export default {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch : ['**/tests/*.spec.+(ts|tsx|js)',
-							 '**/*.test.+(ts|tsx|js)'],
+  testMatch: [
+    "<rootDir>/src/**/*.spec.ts",
+  ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
@@ -158,7 +164,9 @@ export default {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  transform:{'^.+\\.(ts|tsx)$':'ts-jest'}
+  transform: {
+    '^.+\\.ts$': 'ts-jest'
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
