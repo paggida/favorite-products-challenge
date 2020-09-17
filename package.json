@@ -8,16 +8,21 @@
     "start": "nodemon",
     "start-docker": "docker-compose up",
     "test": "jest",
-    "test-docker": "docker exec -it fp_prj yarn test"
+    "test-docker": "docker exec -it fp_prj yarn test",
+    "dev:server": "ts-node-dev --inspect --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/shared/infra/http/server.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.5"
+    "mongoose": "^5.10.5",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.3.0",
+    "yup": "^0.29.3"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/cors": "^2.8.7",
     "@types/express": "^4.17.8",
     "@types/jest": "^26.0.14",
@@ -29,6 +34,9 @@
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2",
     "swagger-ui-express": "^4.1.4",
+    "ts-jest": "^26.3.0",
+    "ts-node-dev": "^1.0.0-pre.62",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^4.0.2"
   }
 }

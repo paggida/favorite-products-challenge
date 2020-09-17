@@ -1,8 +1,8 @@
-import path from 'path';
+import 'reflect-metadata';
+import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 import { Application, Request, Response, NextFunction } from 'express';
-import { config as dotenvConfig } from 'dotenv';
 
 //TBD //import '@shared/infra/mongoose/connection';
 import TokenError from '@shared/errors/TokenError';
@@ -18,16 +18,10 @@ class App {
     this.Express = express();
     this._IsNotProductionEnvironment = process.env.NODE_ENV !== 'production';
 
-    this._EnvironmentVariables();
     this._Middlewares();
     this._Security();
     this._Routes();
     this._Exception();
-  }
-
-  private _EnvironmentVariables(){
-    const envfilePath = path.resolve(__dirname, '..', '..', '..', '..', '.env');
-      dotenvConfig({ path: envfilePath });
   }
 
   private _Middlewares()
