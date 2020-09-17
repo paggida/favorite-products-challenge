@@ -7,6 +7,6 @@ import clientRouter from '@modules/client/infra/http/routes/client';
 const v1Router = Router();
 
 v1Router.use('/v1/client', clientRouter);
-v1Router.get('/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+v1Router.use('/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 export default v1Router;
