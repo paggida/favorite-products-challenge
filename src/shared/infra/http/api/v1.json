@@ -1,0 +1,63 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Favorite Products API",
+    "description": "This project is based on finding the favorite products of the client."
+  },
+  "host": "localhost:3000",
+  "tags": [
+    { "name": "Client", "description": "Features to handle the client data." }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/api/v1/": {
+      "get": {
+        "tags": ["Client"],
+        "summary": "Get a message to test the route.",
+        "description": "",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          },
+          "401": {
+            "description": "Invalid destinations / Destinations are the same value.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Destination not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Success": {
+      "type": "object",
+      "properties": {
+        "message": { "type": "string" }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "message": { "type": "string" }
+      }
+    }
+  }
+}

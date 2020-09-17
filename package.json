@@ -1,0 +1,34 @@
+{
+  "name": "fp_prj",
+  "version": "1.0.0",
+  "main": "src/shared/infra/http/server.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "nodemon",
+    "start-docker": "docker-compose up",
+    "test": "jest",
+    "test-docker": "docker exec -it fp_prj yarn test"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.7",
+    "@types/express": "^4.17.8",
+    "@types/jest": "^26.0.14",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/mongoose": "^5.7.36",
+    "@types/supertest": "^2.0.10",
+    "@types/swagger-ui-express": "^4.1.2",
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2",
+    "swagger-ui-express": "^4.1.4",
+    "typescript": "^4.0.2"
+  }
+}
