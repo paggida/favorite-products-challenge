@@ -11,10 +11,44 @@
   ],
   "schemes": ["http"],
   "paths": {
-    "/api/v1/": {
+    "/api/v1/client": {
       "get": {
         "tags": ["Client"],
         "summary": "Get a message to test the route.",
+        "description": "",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          },
+          "401": {
+            "description": "Invalid destinations / Destinations are the same value.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Destination not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/client/token": {
+      "get": {
+        "tags": ["Client"],
+        "summary": "Get a token message to test the route.",
         "description": "",
         "produces": ["application/json"],
         "responses": {
