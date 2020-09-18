@@ -10,7 +10,8 @@
   ],
   "tags": [
     { "name": "Session", "description": "Features to handle the session." },
-    { "name": "Client", "description": "Features to handle the client data." }
+    { "name": "Client", "description": "Features to handle the client data." },
+    { "name": "Product", "description": "Features to handle the client data." }
   ],
   "schemes": ["http"],
   "paths": {
@@ -60,7 +61,12 @@
             "content":{
               "application/json":{
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
                 },
                 "example":{
                   "message": "Invalid body request."
@@ -73,10 +79,33 @@
             "content":{
               "application/json":{
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
                 },
                 "example":{
                   "message": "Access code does not valid."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
                 }
               }
             }
@@ -86,64 +115,527 @@
     },
     "/api/v1/client": {
       "get": {
+        "security": [
+          {"JWTAuth": []}
+        ],
         "tags": ["Client"],
-        "summary": "Get a message to test the route.",
-        "description": "",
+        "summary": "Get all client records.",
         "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Successful operation.",
-            "schema": {
-              "$ref": "#/components/schemas/Success"
-            }
-          },
-          "404": {
-            "description": "Destination not found.",
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          },
-          "401": {
-            "description": "JWT token is missing. | Invalid JWT token.",
-            "schema": {
-              "$ref": "#/components/schemas/Error"
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Client"
+                  }
+                },
+                "example": [{
+                  "_id": "a1b2c3",
+                  "name": "José",
+                  "email": "jose@fp.com",
+                  "favorite_products": ["c3b2a1"]
+                }]
+              }
             }
           },
           "500": {
             "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/components/schemas/Error"
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "security": [
+          {"JWTAuth": []}
+        ],
+        "tags": ["Client"],
+        "summary": "Create a new client record.",
+        "requestBody":{
+          "required": true,
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "$ref": "#/components/schemas/Client"
+              },
+              "example":{
+                "name": "José",
+                "email": "jose@fp.com",
+                "favorite_products": []
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Client"
+                },
+                "example":{
+                  "_id": "a1b2c3",
+                  "name": "José",
+                  "email": "jose@fp.com",
+                  "favorite_products": ["c3b2a1"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
             }
           }
         }
       }
     },
-    "/api/v1/client/token": {
-      "get": {
+    "/api/v1/client/{clientCode}": {
+      "get":{
         "security": [
           {"JWTAuth": []}
         ],
         "tags": ["Client"],
-        "summary": "Get a token message to test the route.",
-        "description": "",
+        "summary": "Get a specific client record.",
         "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "clientCode",
+            "in": "path",
+            "description": "Client identification code.",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation.",
-            "schema": {
-              "$ref": "#/components/schemas/Success"
-            }
-          },
-          "401": {
-            "description": "JWT token is missing. | Invalid JWT token.",
-            "schema": {
-              "$ref": "#/components/schemas/Error"
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Client"
+                },
+                "example": {
+                  "_id": "a1b2c3",
+                  "name": "José",
+                  "email": "jose@fp.com",
+                  "favorite_products": ["c3b2a1"]
+                }
+              }
             }
           },
           "500": {
             "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/components/schemas/Error"
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
+            }
+          }
+        }
+      },
+      "put":{
+        "security": [
+          {"JWTAuth": []}
+        ],
+        "tags": ["Client"],
+        "summary": "Update data of a specific client record.",
+        "produces": ["application/json"],
+        "requestBody":{
+          "required": true,
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "$ref": "#/components/schemas/Client"
+              },
+              "example":{
+                "name": "José",
+                "email": "jose@fp.com",
+                "favorite_products": []
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "clientCode",
+            "in": "path",
+            "description": "Client identification code.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete":{
+        "security": [
+          {"JWTAuth": []}
+        ],
+        "tags": ["Client"],
+        "summary": "Delete a specific client record.",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "clientCode",
+            "in": "path",
+            "description": "Client identification code.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product": {
+      "get": {
+        "security": [
+          {"JWTAuth": []}
+        ],
+        "tags": ["Product"],
+        "summary": "Get all product records.",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Product"
+                  }
+                },
+                "example": [{
+                  "_id": "a1b2c3",
+                  "title": "Product-X",
+                  "brand": "X-Company",
+                  "image": "https://www.x-images.com/productX.png",
+                  "price": 123.45,
+                  "review_score": 8.7
+                }]
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "security": [
+          {"JWTAuth": []}
+        ],
+        "tags": ["Product"],
+        "summary": "Create a new product record.",
+        "requestBody":{
+          "required": true,
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "$ref": "#/components/schemas/Product"
+              },
+              "example":{
+                "title": "Product-X",
+                "brand": "X-Company",
+                "image": "https://www.x-images.com/productX.png",
+                "price": 123.45,
+                "review_score": 8.7
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product/{productCode}": {
+      "get":{
+        "security": [
+          {"JWTAuth": []}
+        ],
+        "tags": ["Product"],
+        "summary": "Get a specific product record.",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productCode",
+            "in": "path",
+            "description": "Product identification code.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Product"
+                },
+                "example": {
+                  "_id": "a1b2c3",
+                  "title": "Product-X",
+                  "brand": "X-Company",
+                  "image": "https://www.x-images.com/productX.png",
+                  "price": 123.45,
+                  "review_score": 8.7
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
+            }
+          }
+        }
+      },
+      "put":{
+        "security": [
+          {"JWTAuth": []}
+        ],
+        "tags": ["Product"],
+        "summary": "Update data of a specific product record.",
+        "produces": ["application/json"],
+        "requestBody":{
+          "required": true,
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "$ref": "#/components/schemas/Product"
+              },
+              "example":{
+                "title": "Product-X",
+                "brand": "X-Company",
+                "image": "https://www.x-images.com/productX.png",
+                "price": 123.45,
+                "review_score": 8.7
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "productCode",
+            "in": "path",
+            "description": "Product identification code.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete":{
+        "security": [
+          {"JWTAuth": []}
+        ],
+        "tags": ["Product"],
+        "summary": "Delete a specific product record.",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productCode",
+            "in": "path",
+            "description": "Product identification code.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Internal server error."
+                }
+              }
             }
           }
         }
@@ -160,16 +652,28 @@
       }
     },
     "schemas":{
-      "Success": {
+      "Client": {
         "type": "object",
         "properties": {
-          "message": { "type": "string" }
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "favorite_products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "$ref": "#/components/schemas/Product"
+            }
+          }
         }
       },
-      "Error": {
+      "Product": {
         "type": "object",
         "properties": {
-          "message": { "type": "string" }
+          "title": { "type": "string" },
+          "brand": { "type": "string" },
+          "image": { "type": "string" },
+          "price": { "type": "number" },
+          "review_score": { "type": "number" }
         }
       }
     }
