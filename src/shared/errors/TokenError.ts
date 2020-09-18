@@ -5,7 +5,7 @@ export default class TokenError {
 
   public statusCode: number;
 
-  constructor(message: string, data?: object, statusCode = 501) {
+  constructor(message: string, data?: object, statusCode = 401) {
     this.message = message;
     this.statusCode = statusCode;
 
