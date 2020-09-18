@@ -15,18 +15,39 @@
   "schemes": ["http"],
   "paths": {
     "/api/v1/session/token": {
-      "get": {
+      "post": {
         "tags": ["Session"],
-        "summary": "Get a JWT token to access for one hour the other routes.",
-        "description": "",
-        "produces": ["application/json"],
+        "summary": "Obtain a JWT token by validating an access code.",
+        "description": "The JWT token expires in one hour after your creation.",
+        "requestBody":{
+          "description": "The default access code is _'fpPrjAccessCode'_, but can be changed by the **ACCESS_CODE** environment variable.",
+          "required": true,
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "accessCode":{
+                    "type":"string"
+                  }
+                }
+              },
+              "example":{
+                "accessCode": "fpPrjAccessCode"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful operation.",
             "content":{
               "application/json":{
                 "schema": {
-                  "$ref": "#/components/schemas/TokenSuccess"
+                  "type": "object",
+                  "properties": {
+                    "token": { "type": "string" }
+                  }
                 },
                 "example":{
                   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
@@ -119,12 +140,6 @@
               "$ref": "#/components/schemas/Error"
             }
           },
-          "404": {
-            "description": "Destination not found.",
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          },
           "500": {
             "description": "Internal server error.",
             "schema": {
@@ -149,12 +164,6 @@
         "type": "object",
         "properties": {
           "message": { "type": "string" }
-        }
-      },
-      "TokenSuccess": {
-        "type": "object",
-        "properties": {
-          "token": { "type": "string" }
         }
       },
       "Error": {
