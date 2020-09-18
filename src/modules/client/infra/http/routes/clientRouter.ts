@@ -4,14 +4,34 @@ import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthentica
 
 const clientRouter = Router();
 
-clientRouter.get('/', async (req, res) => {
-  return res.json({ message: `Response without token: ${process.env.APP_SECRET}`});
-});
-
 clientRouter.use(ensureAuthenticated);
 
-clientRouter.get('/token', async (req, res) => {
-  return res.json({ message: 'Response with token.'});
+clientRouter.get('/', async (req, res) => {
+  return res.status(501).json({ message: `All route`});
+});
+
+clientRouter.get('/:clientCode', async (req, res) => {
+  const { clientCode } = req.params;
+
+  return res.status(501).json({ clientCode, message: `Search route`});
+});
+
+clientRouter.post('/', async (req, res) => {
+  const newClient = req.body;
+  return res.status(501).json({ message: `Create route.`, data: newClient });
+});
+
+clientRouter.put('/:clientCode', async (req, res) => {
+  const { clientCode } = req.params;
+  const updateClient = req.body;
+
+  return res.status(501).json({ clientCode, message: `Update route.`, data: updateClient });
+});
+
+clientRouter.delete('/:clientCode', async (req, res) => {
+  const { clientCode } = req.params;
+
+  return res.status(501).json({ clientCode, message: `Delete route.`});
 });
 
 export default clientRouter;
