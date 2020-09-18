@@ -142,6 +142,21 @@
               }
             }
           },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content":{
@@ -203,6 +218,21 @@
               }
             }
           },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content":{
@@ -255,6 +285,21 @@
                   "name": "José",
                   "email": "jose@fp.com",
                   "favorite_products": ["c3b2a1"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
                 }
               }
             }
@@ -315,6 +360,21 @@
           "200": {
             "description": "Successful operation."
           },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content":{
@@ -354,6 +414,21 @@
         "responses": {
           "200": {
             "description": "Successful operation."
+          },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
             "description": "Internal server error.",
@@ -404,6 +479,21 @@
                   "price": 123.45,
                   "review_score": 8.7
                 }]
+              }
+            }
+          },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                }
               }
             }
           },
@@ -460,6 +550,21 @@
                 "schema": {
                   "type": "object",
                   "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
                 }
               }
             }
@@ -522,6 +627,21 @@
               }
             }
           },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content":{
@@ -580,6 +700,21 @@
           "200": {
             "description": "Successful operation."
           },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content":{
@@ -619,6 +754,21 @@
         "responses": {
           "200": {
             "description": "Successful operation."
+          },
+          "401": {
+            "description": "'JWT token is missing.' or 'Invalid JWT token.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
             "description": "Internal server error.",
