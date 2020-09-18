@@ -3,6 +3,11 @@ import { injectable } from 'tsyringe';
 
 import authConfig from '@config/auth';
 import Service from '@shared/core/Service';
+import AccessCodeAuthenticityError from '@modules/session/errors/AccessCodeAuthenticityError';
+
+interface Request {
+  accessCode: string;
+}
 
 interface Response {
   token: string;
@@ -10,12 +15,17 @@ interface Response {
 
 @injectable()
 class AuthenticateService implements Service<Request, Response> {
-  async execute(): Promise<Response> {
-    return {
-      token: jwt.sign({}, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      })
-    };
+  async execute({ accessCode }: Request): Promise<Response> {
+
+    if (accessCode === authConfig.accessCode) {
+      return {
+        token: jwt.sign({}, authConfig.secret, {
+          expiresIn: authConfig.expiresIn,
+        })
+      } as Response;
+    }else{
+      throw new AccessCodeAuthenticityError('Access code does not valid.');
+    }
   }
 }
 
