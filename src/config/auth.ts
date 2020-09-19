@@ -3,5 +3,5 @@ export default {
 
   secret: process.env.APP_SECRET || 'fpPrjSecret',
 
-  expiresIn: '1d',
+  expiresIn: '1h',
 };
