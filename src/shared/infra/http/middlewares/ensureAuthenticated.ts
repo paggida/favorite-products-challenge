@@ -6,11 +6,7 @@ import authConfig from '@config/auth';
 
 import TokenError from '@shared/errors/TokenError';
 
-export default function ensureAuthenticated(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): void | Error {
+export default function ensureAuthenticated(req: Request, res: Response, next: NextFunction): void | Error {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {

@@ -15,7 +15,7 @@ interface Response {
 
 @injectable()
 class AuthenticateService implements Service<Request, Response> {
-  async execute({ accessCode }: Request): Promise<Response> {
+  execute({ accessCode }: Request): Response {
 
     if (accessCode === authConfig.accessCode) {
       return {
