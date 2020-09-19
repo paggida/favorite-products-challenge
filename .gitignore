@@ -4,6 +4,7 @@
 # Yarn
 node_modules
 yarn-error.log
+yarn.lock
 
 # Jest
 coverage
