@@ -1,10 +1,15 @@
-import mongoose, { Document, Schema, Model } from 'mongoose';
+import mongoose, { Document, Schema, PaginateModel } from 'mongoose';
+import paginate from 'mongoose-paginate';
 
 export type ClientDocument = Document & {
-  title: string;
+  name: string,
+  email: string,
+  favorite_products: Schema.Types.ObjectId[],
+  createdAt: Date,
+  updatedAt: Date
 };
 
-type ClientModel = Model<ClientDocument>;
+type ClientModel = PaginateModel<ClientDocument>;
 
 const ClientSchema = new Schema(
   {
@@ -27,5 +32,7 @@ const ClientSchema = new Schema(
     timestamps: true,
   },
 );
+
+ClientSchema.plugin(paginate);
 
 export default mongoose.model<ClientDocument, ClientModel>('Client', ClientSchema);

@@ -4,7 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import { Application, Request, Response, NextFunction } from 'express';
 
-//TBD //import '@shared/infra/mongoose/connection';
+import '@shared/infra/mongoose/connection';
 import TokenError from '@shared/errors/TokenError';
 import routes from './api/v1';
 

@@ -127,18 +127,33 @@
             "content":{
               "application/json":{
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "$ref": "#/components/schemas/Client"
+                  "type": "object",
+                  "properties":{
+                    "docs":{
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/Client"
+                      }
+                    },
+                    "total": { "type":"number" },
+                    "limit": { "type":"number" },
+                    "page": { "type":"number" },
+                    "pages": { "type":"number" }
                   }
                 },
-                "example": [{
-                  "_id": "a1b2c3",
-                  "name": "José",
-                  "email": "jose@fp.com",
-                  "favorite_products": ["c3b2a1"]
-                }]
+                "example": {
+                  "docs": [{
+                    "_id": "a1b2c3",
+                    "name": "José",
+                    "email": "jose@fp.com",
+                    "favorite_products": ["c3b2a1"]
+                  }],
+                  "total": 1,
+                  "limit": 10,
+                  "page": 1,
+                  "pages": 1
+                }
               }
             }
           },
@@ -465,20 +480,35 @@
             "content":{
               "application/json":{
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "$ref": "#/components/schemas/Product"
+                  "type": "object",
+                  "properties":{
+                    "docs":{
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/Product"
+                      }
+                    },
+                    "total": { "type":"number" },
+                    "limit": { "type":"number" },
+                    "page": { "type":"number" },
+                    "pages": { "type":"number" }
                   }
                 },
-                "example": [{
-                  "_id": "a1b2c3",
-                  "title": "Product-X",
-                  "brand": "X-Company",
-                  "image": "https://www.x-images.com/productX.png",
-                  "price": 123.45,
-                  "review_score": 8.7
-                }]
+                "example": {
+                  "docs": [{
+                    "_id": "a1b2c3",
+                    "title": "Product-X",
+                    "brand": "X-Company",
+                    "image": "https://www.x-images.com/productX.png",
+                    "price": 123.45,
+                    "review_score": 8.7
+                  }],
+                  "total": 1,
+                  "limit": 10,
+                  "page": 1,
+                  "pages": 1
+                }
               }
             }
           },
