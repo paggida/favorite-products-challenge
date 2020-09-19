@@ -14,7 +14,7 @@ sessionRouter.post('/token', ensureBodyInput, async (req, res) => {
 
     const authService = container.resolve(AuthenticateService);
 
-    return res.json(await authService.execute({ accessCode }));
+    return res.json(authService.execute({ accessCode }));
 
   }catch(err){
     if (err instanceof AccessCodeAuthenticityError) {
