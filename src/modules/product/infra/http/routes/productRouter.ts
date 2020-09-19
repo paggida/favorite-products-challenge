@@ -1,10 +1,6 @@
 import { Router } from 'express';
 
-import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
-
 const productRouter = Router();
-
-productRouter.use(ensureAuthenticated);
 
 productRouter.get('/', async (req, res) => {
   return res.status(501).json({ message: `All route`});
