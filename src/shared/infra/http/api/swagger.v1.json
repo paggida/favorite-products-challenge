@@ -120,6 +120,16 @@
         ],
         "tags": ["Client"],
         "summary": "Get all client records.",
+        "parameters":[
+          {
+            "in":"query",
+            "name":"page",
+            "schema":{
+              "type": "integer"
+            },
+            "description":"Defines the page number among the pagination you want to obtain. If not defined, it will be assumed as page 1."
+          }
+        ],
         "produces": ["application/json"],
         "responses": {
           "200": {
@@ -147,7 +157,9 @@
                     "_id": "a1b2c3",
                     "name": "José",
                     "email": "jose@fp.com",
-                    "favorite_products": ["c3b2a1"]
+                    "favorite_products": ["c3b2a1"],
+                    "createdAt": "2020-09-19T21:04:04.130Z",
+                    "updatedAt": "2020-09-19T21:04:04.130Z"
                   }],
                   "total": 1,
                   "limit": 10,
@@ -222,13 +234,29 @@
               "application/json":{
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Client"
+                  "properties":{
+                    "message":{
+                      "id":"string"
+                    }
+                  }
                 },
                 "example":{
-                  "_id": "a1b2c3",
-                  "name": "José",
-                  "email": "jose@fp.com",
-                  "favorite_products": ["c3b2a1"]
+                  "id": "a1b2c3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "'Client already exist.' or 'Invalid body request.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
                 }
               }
             }
@@ -299,7 +327,27 @@
                   "_id": "a1b2c3",
                   "name": "José",
                   "email": "jose@fp.com",
-                  "favorite_products": ["c3b2a1"]
+                  "favorite_products": ["c3b2a1"],
+                  "createdAt": "2020-09-19T21:04:04.130Z",
+                  "updatedAt": "2020-09-19T21:04:04.130Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid client code format.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Invalid client code format."
                 }
               }
             }
@@ -315,6 +363,24 @@
                       "type":"string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Client not found.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Client not found."
                 }
               }
             }
@@ -373,7 +439,41 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful operation."
+            "description": "Successful operation.",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "$ref": "#/components/schemas/Client"
+                },
+                "example":{
+                  "_id": "a1b2c3",
+                  "name": "José",
+                  "email": "jose@fp.com",
+                  "favorite_products": [],
+                  "createdAt": "2020-09-19T21:04:04.130Z",
+                  "updatedAt": "2020-09-19T21:04:04.130Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "'Invalid client code format.' or 'The updated client already exists.' or 'Invalid body request.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Invalid client code format."
+                }
+              }
+            }
           },
           "401": {
             "description": "'JWT token is missing.' or 'Invalid JWT token.'",
@@ -386,6 +486,24 @@
                       "type":"string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Client not found.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Client not found."
                 }
               }
             }
@@ -430,6 +548,24 @@
           "200": {
             "description": "Successful operation."
           },
+          "400": {
+            "description": "Invalid client code format.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Invalid client code format."
+                }
+              }
+            }
+          },
           "401": {
             "description": "'JWT token is missing.' or 'Invalid JWT token.'",
             "content":{
@@ -441,6 +577,24 @@
                       "type":"string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Client not found.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Client not found."
                 }
               }
             }
@@ -473,6 +627,16 @@
         ],
         "tags": ["Product"],
         "summary": "Get all product records.",
+        "parameters":[
+          {
+            "in":"query",
+            "name":"page",
+            "schema":{
+              "type": "integer"
+            },
+            "description":"Defines the page number among the pagination you want to obtain. If not defined, it will be assumed as page 1."
+          }
+        ],
         "produces": ["application/json"],
         "responses": {
           "200": {
@@ -502,7 +666,9 @@
                     "brand": "X-Company",
                     "image": "https://www.x-images.com/productX.png",
                     "price": 123.45,
-                    "review_score": 8.7
+                    "review_score": 8.7,
+                    "createdAt": "2020-09-19T21:04:04.130Z",
+                    "updatedAt": "2020-09-19T21:04:04.130Z"
                   }],
                   "total": 1,
                   "limit": 10,
@@ -579,7 +745,29 @@
               "application/json":{
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Product"
+                  "properties":{
+                    "message":{
+                      "id":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "id": "a1b2c3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "'Product already exist.' or 'Invalid body request.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
                 }
               }
             }
@@ -652,7 +840,27 @@
                   "brand": "X-Company",
                   "image": "https://www.x-images.com/productX.png",
                   "price": 123.45,
-                  "review_score": 8.7
+                  "review_score": 8.7,
+                  "createdAt": "2020-09-19T21:04:04.130Z",
+                  "updatedAt": "2020-09-19T21:04:04.130Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid product code format.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Invalid product code format."
                 }
               }
             }
@@ -668,6 +876,24 @@
                       "type":"string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Product not found."
                 }
               }
             }
@@ -707,7 +933,7 @@
                 "type": "object",
                 "$ref": "#/components/schemas/Product"
               },
-              "example":{
+              "example": {
                 "title": "Product-X",
                 "brand": "X-Company",
                 "image": "https://www.x-images.com/productX.png",
@@ -728,7 +954,43 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful operation."
+            "description": "Successful operation.",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "$ref": "#/components/schemas/Product"
+                },
+                "example": {
+                  "_id": "a1b2c3",
+                  "title": "Product-X",
+                  "brand": "X-Company",
+                  "image": "https://www.x-images.com/productX.png",
+                  "price": 123.45,
+                  "review_score": 8.7,
+                  "createdAt": "2020-09-19T21:04:04.130Z",
+                  "updatedAt": "2020-09-19T21:04:04.130Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "'Invalid product code format.' or 'The updated product already exists.' or 'Invalid body request.'",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Invalid product code format."
+                }
+              }
+            }
           },
           "401": {
             "description": "'JWT token is missing.' or 'Invalid JWT token.'",
@@ -741,6 +1003,24 @@
                       "type":"string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Product not found."
                 }
               }
             }
@@ -785,6 +1065,24 @@
           "200": {
             "description": "Successful operation."
           },
+          "400": {
+            "description": "Invalid product code format.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Invalid product code format."
+                }
+              }
+            }
+          },
           "401": {
             "description": "'JWT token is missing.' or 'Invalid JWT token.'",
             "content":{
@@ -796,6 +1094,24 @@
                       "type":"string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Product not found."
                 }
               }
             }
