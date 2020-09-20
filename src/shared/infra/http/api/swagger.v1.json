@@ -334,24 +334,6 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid client code format.",
-            "content":{
-              "application/json":{
-                "schema": {
-                  "type":"object",
-                  "properties":{
-                    "message":{
-                      "type":"string"
-                    }
-                  }
-                },
-                "example":{
-                  "message": "Invalid client code format."
-                }
-              }
-            }
-          },
           "401": {
             "description": "'JWT token is missing.' or 'Invalid JWT token.'",
             "content":{
@@ -458,7 +440,7 @@
             }
           },
           "400": {
-            "description": "'Invalid client code format.' or 'The updated client already exists.' or 'Invalid body request.'",
+            "description": "'The updated client already exists.' or 'Invalid body request.'",
             "content":{
               "application/json":{
                 "schema": {
@@ -468,9 +450,6 @@
                       "type":"string"
                     }
                   }
-                },
-                "example":{
-                  "message": "Invalid client code format."
                 }
               }
             }
@@ -547,24 +526,6 @@
         "responses": {
           "200": {
             "description": "Successful operation."
-          },
-          "400": {
-            "description": "Invalid client code format.",
-            "content":{
-              "application/json":{
-                "schema": {
-                  "type":"object",
-                  "properties":{
-                    "message":{
-                      "type":"string"
-                    }
-                  }
-                },
-                "example":{
-                  "message": "Invalid client code format."
-                }
-              }
-            }
           },
           "401": {
             "description": "'JWT token is missing.' or 'Invalid JWT token.'",
@@ -847,24 +808,6 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid product code format.",
-            "content":{
-              "application/json":{
-                "schema": {
-                  "type":"object",
-                  "properties":{
-                    "message":{
-                      "type":"string"
-                    }
-                  }
-                },
-                "example":{
-                  "message": "Invalid product code format."
-                }
-              }
-            }
-          },
           "401": {
             "description": "'JWT token is missing.' or 'Invalid JWT token.'",
             "content":{
@@ -975,7 +918,7 @@
             }
           },
           "400": {
-            "description": "'Invalid product code format.' or 'The updated product already exists.' or 'Invalid body request.'",
+            "description": "'The updated product already exists.' or 'Invalid body request.'",
             "content":{
               "application/json":{
                 "schema": {
@@ -985,9 +928,6 @@
                       "type":"string"
                     }
                   }
-                },
-                "example":{
-                  "message": "Invalid product code format."
                 }
               }
             }
@@ -1064,24 +1004,6 @@
         "responses": {
           "200": {
             "description": "Successful operation."
-          },
-          "400": {
-            "description": "Invalid product code format.",
-            "content":{
-              "application/json":{
-                "schema": {
-                  "type":"object",
-                  "properties":{
-                    "message":{
-                      "type":"string"
-                    }
-                  }
-                },
-                "example":{
-                  "message": "Invalid product code format."
-                }
-              }
-            }
           },
           "401": {
             "description": "'JWT token is missing.' or 'Invalid JWT token.'",
