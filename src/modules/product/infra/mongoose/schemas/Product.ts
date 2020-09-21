@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Model } from 'mongoose';
+import mongoose, { Document, Schema, PaginateModel } from 'mongoose';
 import paginate from 'mongoose-paginate';
 
 export type ProductDocument = Document & {
@@ -11,7 +11,7 @@ export type ProductDocument = Document & {
   updatedAt: Date
 };
 
-type ProductModel = Model<ProductDocument>;
+type ProductModel = PaginateModel<ProductDocument>;
 
 const ProductSchema = new Schema(
   {
@@ -26,7 +26,10 @@ const ProductSchema = new Schema(
       required: true,
     },
     image: String,
-    price: Number,
+    price: {
+      type: Number,
+      required: true,
+    },
     review_score: Number,
   },
   {
