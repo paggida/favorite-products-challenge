@@ -1,15 +1,27 @@
-FROM node:10
+FROM node:12-alpine AS builder
 
-ENV NODE_ENV test
+WORKDIR /home/node/build
 
-WORKDIR /usr/src/app
+COPY package.json yarn.* ./
 
-COPY package*.json .
-
-RUN ["yarn"]
+RUN yarn
 
 COPY . .
 
+RUN yarn build
+
+
+FROM node:12-alpine AS build
+
+WORKDIR /home/node/api/
+
+RUN yarn global add pm2
+
+COPY --from=builder /home/node/build/node_modules ./node_modules
+COPY --from=builder /home/node/build/process.yml .
+COPY --from=builder /home/node/build/package.json .
+COPY --from=builder /home/node/build/dist ./src
+
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["pm2-runtime", "process.yml"]
