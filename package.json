@@ -4,11 +4,10 @@
   "main": "src/shared/infra/http/server.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "test-docker": "docker exec -it api yarn test",
     "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
-    "docker:server": "COMPOSE_PROJECT_NAME=fp docker-compose up",
-    "dev:server": "ts-node-dev --inspect --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/shared/infra/http/server.ts"
+    "test": "jest",
+    "dev:server": "ts-node-dev --inspect --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/shared/infra/http/server.ts",
+    "docker:server": "COMPOSE_PROJECT_NAME=fp docker-compose up"
   },
   "dependencies": {
     "cors": "^2.8.5",
