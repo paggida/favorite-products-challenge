@@ -6,7 +6,7 @@ import IsValidProductObjectService from '@modules/product/services/IsValidProduc
 const isValidProductObjectService = container.resolve(IsValidProductObjectService);
 
 describe('Validation of the compatibility check between product object and Yap object.', () => {
-  it('Should be able to validate compatibility with object that has the rules of Yup schema.', async () => {
+  it('Should be able to validate compatibility with an object that has the rules of Yup schema.', async () => {
     const yupRulesSchema = yup.object().shape({
       title: yup.string().strict(true).required(),
       brand: yup.string().strict(true).required(),
@@ -27,7 +27,7 @@ describe('Validation of the compatibility check between product object and Yap o
 
     expect(isValidProductObj).toBeTruthy();
   });
-  it('Should be able to validate compatibility with object that has the rules of Yup schema.', async () => {
+  it('Should not be able to validate compatibility with an object that has not the rules of Yup schema.', async () => {
     const yupRulesSchema = yup.object().shape({
       title: yup.string().strict(true).required(),
       brand: yup.string().strict(true).required(),
