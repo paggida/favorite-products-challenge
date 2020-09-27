@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { container } from 'tsyringe';
-import * as yup from 'yup';
 
 import ProductObjBodyError from '@modules/product/errors/ProductObjBodyError';
 import DuplicatedProductError from '@modules/product/errors/DuplicatedProductError';
