@@ -488,7 +488,7 @@
             }
           },
           "404": {
-            "description": "Client not found.",
+            "description": "'Client not found.' or 'Unknown product among favorites.'",
             "content":{
               "application/json":{
                 "schema": {
@@ -498,9 +498,6 @@
                       "type":"string"
                     }
                   }
-                },
-                "example":{
-                  "message": "Client not found."
                 }
               }
             }
