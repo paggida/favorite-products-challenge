@@ -33,7 +33,7 @@ class GetYupRulesSchemaForNewClient implements Service<Request, Response> {
           yupRulesSchema[field] = yup.string().strict(true);
         }
       }
-      if(Client.schema.paths[field] instanceof Schema.Types.DocumentArray){
+      if(Client.schema.paths[field] instanceof Schema.Types.Array){
         yupRulesSchema[field] = yup.array().of(yup.string().strict(true))
       }
     });
