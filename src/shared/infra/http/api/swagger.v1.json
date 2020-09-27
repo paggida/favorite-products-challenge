@@ -276,6 +276,24 @@
               }
             }
           },
+          "404": {
+            "description": "Unknown product among favorites.",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties":{
+                    "message":{
+                      "type":"string"
+                    }
+                  }
+                },
+                "example":{
+                  "message": "Unknown product among favorites."
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content":{
