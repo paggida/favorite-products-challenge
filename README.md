@@ -27,34 +27,53 @@ It'll be responsible for the commands to start the application. You can choose y
 - [Yarn](https://classic.yarnpkg.com/en/docs/install)
 
 ## 👨‍💻 Running the application
-Start the docker service installed in your environment, after completing, depending on which package manager you chose, run both respective commands below inside the application's root folder.
+Start the docker service installed in your environment, after completing, depending on which package manager you chose, run the command below inside the application's root folder.
 
-    yarn
-
-    yarn start-docker
+    yarn docker:server
 or
 
-    npm install
-
-    npm run start-docker
+    npm run docker:server
 
 You can interact with the API through an API client software or through the Swagger documentation page available on the console after the application container starts (`Swagger url: http://localhost:3000/api/v1/doc`).
 
+## 🔒️ Authentication
+API functionalities are protected by JWT Token in Bearer format with an expiration time of one hour.
+
+To obtain the token, it is necessary to make a post request to the address `/api/v1/session/token` using the access code ( e.g: the default `'fpPrjAccessCode'` )
 
 ## 📝 Tests
-With the application running, execute the command below:
+With the application running and the terminal already pointing to the project's root folder, you can use the command below (It depends on which package manager you chose):
 
-    docker exec -it favorite_products_prj yarn test
-
-If the terminal is already pointing to the project's root folder, you can use the shorter command below (It depends on which package manager you chose):
-
-    yarn test-docker
+    yarn test
 or
 
-    npm run test-docker
+    npm run test
+
+The above command will perform the unit and integration tests found within the project using the extension `.spec.ts`
+
+- **Unit tests:** Located in the same directory as the modules to be tested.
+- **Integration tests:** Located in `<project folder>/src/shared/tests`
 
 ## 📐 Architecture
-TBD
+The project was structured using [Clean architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) aiming at the following benefits:
+- Easier application of the [SoC(Separation of Concerns)](https://en.wikipedia.org/wiki/Separation_of_concerns#:~:text=In%20computer%20science%2C%20separation%20of,code%20of%20a%20computer%20program) concept.
+- Fully isolate the software domain from technical details and even external software/services.
+- Improves testability.
+- Facility for possible exchanges of peripheral technologies.
+
+The code follows [clean Code](http://cleancoder.com/files/cleanCodeCourse.md) concepts, as much as possible, so that the code could be self-documented.
 
 ## 📁Organization
-TBD
+All project modules follow the structure below, and may have fewer folders, in case it is not necessary for your responsibility:
+
+- **config:** Stores the configurations to be followed by all modules belonging to the project.
+- **core:** Location of standardization interfaces for services.
+- **errors:** Location of error objects that can be launched by the module.
+- **infra:** Interface adapters for interacting with entities external to the module.
+  - **http:** Structures for interaction via HTTP request.
+    - **middlewares:** Validation and adaptation services of received data.
+    - **routes:** HTTP request routes.
+  - **mongoose:** Structure for interaction with MongoDB database.
+    - **schemas:** Location of entities used by the module within MongoDB.
+- **services:** All services provided by the module.
+- **tests:** Module integration test files.s
