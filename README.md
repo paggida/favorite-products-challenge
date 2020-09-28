@@ -76,4 +76,4 @@ All project modules follow the structure below, and may have fewer folders, in c
   - **mongoose:** Structure for interaction with MongoDB database.
     - **schemas:** Location of entities used by the module within MongoDB.
 - **services:** All services provided by the module.
-- **tests:** Module integration test files.s
+- **tests:** Module integration test files.
