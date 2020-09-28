@@ -14,7 +14,8 @@ clientRouter.get('/', async (req, res) => {
   const clients = await Client.paginate({}, {
     page: parseInt(page) || 1,
     limit: 10,
-    sort: '-createdAt'
+    sort: '-createdAt',
+    populate: 'favorite_products'
   });
 
   return res.status(200).json(clients);
@@ -23,7 +24,8 @@ clientRouter.get('/', async (req, res) => {
 clientRouter.get('/:clientCode', ensureExistentClientCode, async (req, res) => {
   const { clientCode } = req.params;
 
-  const client = await Client.findById(clientCode);
+  const client = await Client.findById(clientCode).populate('favorite_products');
+
 
   return res.status(200).json(client);
 });
